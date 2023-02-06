@@ -27,6 +27,7 @@ describe Hero do
       expect(hero.health).to eq(3)
     end
   end
+  
   describe "attack attack" do
     let(:attack_action) { double("attack_action") } 
     let(:hero) { Hero.new actions: { attack: attack_action } }
