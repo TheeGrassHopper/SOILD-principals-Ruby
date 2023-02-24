@@ -8,6 +8,21 @@ describe FleeAction do
   let(:monster) { double("monster", toughness: 2, kill: nil, damage: 4, notice: 2) }
 
   describe "effect" do
+    context "success" do
+      it "sendds flee message to the owner" do
+        allow(dicepool).to receive(:skill_check).and_return(true)
+        expect(hero).to receive(:flee)
+        flee_action.activate(monster)
+      end
+    end
+    
+    context "failure" do
+      it "deals damage to the ower" do
+        allow(dicepool).to receive(:skill_check).and_return(false)
+        expect(hero).to receive(:damage).with(monster.damage)
+        flee_action.activate(monster)
+      end
+    end
   end
 
   describe "activate" do

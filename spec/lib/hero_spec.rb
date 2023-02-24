@@ -54,6 +54,17 @@ describe Hero do
     end
   end
 
+  describe "flee state" do
+    it "is not fleeing by default" do
+      expect(hero.fleeing?).to be_falsey
+    end
+
+    it "can be fleeing" do
+      hero.flee
+      expect(hero.fleeing?).to be_truthy
+    end
+  end
+
   describe "attack attack" do
     let(:attack_action) { double("attack_action") } 
     let(:hero) { Hero.new actions: { attack: attack_action } }
