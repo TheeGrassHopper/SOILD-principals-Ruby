@@ -1,5 +1,5 @@
-require 'spec_helper'
 require_relative '../../lib/attack_action'
+require 'spec_helper'
 
 describe AttackAction do
   let(:hero) { double("hero", strength: 3, gain_exp: nil, gain_gold: nil, damage: nil) }
@@ -8,6 +8,14 @@ describe AttackAction do
   let(:monster) { double("monster", toughness: 2, kill: nil, damage: 4) }
 
   it_behaves_like "action"
+
+  it "has strength as attribute" do
+    expect(subject.attribute).to eq :strength
+  end
+
+  it "has toughness as difficulty" do
+    expect(subject.difficulty).to eq :toughness
+  end
 
   describe "effect" do
     context "success" do
@@ -37,22 +45,6 @@ describe AttackAction do
         expect(hero).to receive(:damage).with(monster.damage)
         subject.activate(monster)
       end
-    end
-  end
-
-  describe "activate" do
-    it "makes strength check against target toughness" do
-      monster = double("monster", toughness: 2, kill: nil, damage: nil)
-      allow(dicepool).to receive(:skill_check).with(hero.strength, monster.toughness)
-      subject.activate(monster)
-    end
-
-    it "respondes to activate message" do
-      expect(subject).to respond_to(:activate)
-    end
-
-    it "it has an  owner" do
-      expect(subject.owner).to eq(hero)
     end
   end
 end
