@@ -1,7 +1,9 @@
-class Action
-  def initialize(owner, dicepool)
+require_relative 'dicepool'
+
+module Actionable
+  def initialize(owner = nil)
     @owner = owner
-    @dicepool= dicepool
+    @dicepool = Dicepool.new
 
     action_attributes
   end

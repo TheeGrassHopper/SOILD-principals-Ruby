@@ -1,10 +1,10 @@
-shared_examples 'action' do  
+shared_examples 'actionable' do  
   
   it "responds to activate message" do
     expect(subject).to respond_to(:activate)
   end
 
-  it "responds to suc:success message" do
+  it "responds to suc:success message" do  
     expect(subject).to respond_to(:success)
   end
 
@@ -26,5 +26,11 @@ shared_examples 'action' do
 
   it "responds to attribute message" do
     expect(subject).to respond_to(:attribute)
+  end
+end
+
+shared_examples 'action' do
+  it "resonds to owner" do
+    expect(subject.owner).to eq(hero)
   end
 end

@@ -4,10 +4,11 @@ require 'spec_helper'
 describe AttackAction do
   let(:hero) { double("hero", strength: 3, gain_exp: nil, gain_gold: nil, damage: nil) }
   let(:dicepool) { double("dicepool") }
-  let(:subject) { AttackAction.new hero, dicepool }
+  let(:subject) { AttackAction.new hero }
   let(:monster) { double("monster", toughness: 2, kill: nil, damage: 4) }
 
   it_behaves_like "action"
+  it_behaves_like "actionable"
 
   it "has strength as attribute" do
     expect(subject.attribute).to eq :strength
@@ -18,6 +19,8 @@ describe AttackAction do
   end
 
   describe "effect" do
+
+    before { allow(Dicepool).to receive(:new).and_return(dicepool) }
     context "success" do
       before :each do
         allow(dicepool).to receive(:skill_check).and_return(true)
